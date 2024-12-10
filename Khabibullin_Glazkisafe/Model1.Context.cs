@@ -16,21 +16,11 @@ namespace Khabibullin_Glazkisafe
     public partial class Khabibullin_GlazkisafeEntities : DbContext
     {
         private static Khabibullin_GlazkisafeEntities _context;
-
         public static Khabibullin_GlazkisafeEntities GetContext()
         {
-            if (_context == null)
-            {
-                _context = new Khabibullin_GlazkisafeEntities();
             }
             return _context;
         }
-
-        public Khabibullin_GlazkisafeEntities()
-            : base("name=Khabibullin_GlazkisafeEntities")
-        {
-        }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

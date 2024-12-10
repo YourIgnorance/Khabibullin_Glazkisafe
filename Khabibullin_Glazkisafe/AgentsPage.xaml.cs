@@ -37,7 +37,6 @@ namespace Khabibullin_Glazkisafe
         {
             var currentAgents = Khabibullin_GlazkisafeEntities.GetContext().Agent.ToList();
 
-
             if (SortComboBox.SelectedIndex == 0)
             {
                 currentAgents = currentAgents.OrderBy(p => p.Title).ToList();
