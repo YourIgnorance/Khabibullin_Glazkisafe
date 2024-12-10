@@ -13,14 +13,24 @@ namespace Khabibullin_Glazkisafe
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Khabibullin_GlazkisafeEntities : DbContext
+    public partial class Khabibullin_GlazkisafeEntities1 : DbContext
     {
-        private static Khabibullin_GlazkisafeEntities _context;
-        public static Khabibullin_GlazkisafeEntities GetContext()
+        private static Khabibullin_GlazkisafeEntities1 _context;
+
+        public static Khabibullin_GlazkisafeEntities1 GetContext()
         {
+            if (_context == null)
+            {
+                _context = new Khabibullin_GlazkisafeEntities1();
             }
             return _context;
         }
+
+        public Khabibullin_GlazkisafeEntities1()
+            : base("name=Khabibullin_GlazkisafeEntities1")
+        {
+        }
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

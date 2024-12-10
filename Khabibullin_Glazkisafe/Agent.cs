@@ -21,7 +21,15 @@ namespace Khabibullin_Glazkisafe
             this.ProductSale = new HashSet<ProductSale>();
             this.Shop = new HashSet<Shop>();
         }
-    
+
+        public string GetAgentType
+        {
+            get
+            {
+                return AgentType.Title;
+            }
+        }
+
         public int ID { get; set; }
         public int AgentTypeID { get; set; }
         public string Title { get; set; }
@@ -33,7 +41,7 @@ namespace Khabibullin_Glazkisafe
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
-
+    
         public virtual AgentType AgentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentPriorityHistory> AgentPriorityHistory { get; set; }
