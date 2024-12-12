@@ -92,7 +92,6 @@
                         <StackPanel Orientation="Horizontal" Grid.Column="3">
                             <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click"  Height="30" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
                         </StackPanel>
-
                         <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                     <TextBlock Text="{Binding Priority, StringFormat={} Приоритетность: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                         
