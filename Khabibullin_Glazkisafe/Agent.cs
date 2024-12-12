@@ -22,14 +22,6 @@ namespace Khabibullin_Glazkisafe
             this.Shop = new HashSet<Shop>();
         }
 
-        public string GetAgentType
-        {
-            get
-            {
-                return AgentType.Title;
-            }
-        }
-
         public int ID { get; set; }
         public int AgentTypeID { get; set; }
         public string Title { get; set; }
@@ -41,7 +33,51 @@ namespace Khabibullin_Glazkisafe
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
-    
+        public string GetAgentType
+        {
+            get
+            {
+                return AgentType.Title;
+            }
+        }
+
+        public decimal ProductPrice
+        {
+            get
+            {
+                decimal price = 0;
+
+                foreach (ProductSale sales in ProductSale)
+                {
+                    price += sales.GetAgentPrice;
+                }
+                return price;
+            }
+        }
+        public decimal GetDiscount
+        {
+            get
+            {
+                decimal price = 0;
+
+                foreach (ProductSale sales in ProductSale)
+                {
+                    price += sales.GetAgentPrice;
+                }
+
+                if (price < 10000)
+                    return 0;
+                else if (price >= 10000 && price < 50000)
+                    return 5;
+                else if (price >= 50000 && price < 150000)
+                    return 10;
+                else if (price >= 150000 && price < 500000)
+                    return 20;
+                else
+                    return 25;
+            }
+        }
+
         public virtual AgentType AgentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentPriorityHistory> AgentPriorityHistory { get; set; }

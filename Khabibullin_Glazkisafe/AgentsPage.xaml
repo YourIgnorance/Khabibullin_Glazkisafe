@@ -47,6 +47,10 @@
                 </ComboBox>
             </StackPanel>
         </WrapPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="Добавить агента" Name="AddButton" Click="AddButton_Click" HorizontalAlignment="Left"></Button>
+            <Button Content="Изменить приоритет на ..." Name="EditPriorityButton" Click="EditPriorityButton_Click" Width="300" HorizontalAlignment="Left"></Button>
+        </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="LeftDirButton" Content="&lt;" Width="30" Height="30" Click="LeftDirButton_Click"></Button>
             <ListBox FontSize="20" Name="PageListBox" MouseUp="PageListBox_MouseUp">
@@ -57,22 +61,24 @@
                 </ListBox.ItemsPanel>
             </ListBox>
             <Button Name="RightDirButton" Content="&gt;" Width="30" Height="30" Click="RightDirButton_Click"></Button>
-            <TextBlock Name="TBCount" FontSize="20" Height="20"></TextBlock>
-            <TextBlock Name="TBAllRecords" FontSize="20" Height="20"></TextBlock>
+            <TextBlock Name="TBCount" FontSize="20" Height="30" ></TextBlock>
+            <TextBlock Name="TBAllRecords" FontSize="20" Height="30"></TextBlock>
         </StackPanel>
         <ListView Name="AgentsListView" Grid.Row="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <Image Width="200" Grid.Column="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
                             <Image.Source>
@@ -85,16 +91,18 @@
                                 </Binding>
                             </Image.Source>
                         </Image>
-                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
                             <TextBlock Text="{Binding GetAgentType}" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                             <TextBlock Text="{Binding Title, StringFormat={} | {0}}" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="3">
-                            <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click"  Height="30" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
-                        </StackPanel>
                         <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="20"></TextBlock>
-                    <TextBlock Text="{Binding Priority, StringFormat={} Приоритетность: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="20"></TextBlock>
-                        
+                        <TextBlock Text="{Binding ProductPrice, StringFormat={} Продажи за год: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                        <TextBlock Text="{Binding Priority, StringFormat={} Приоритетность: {0}}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <TextBlock Text="Скидка" HorizontalAlignment="Left" FontSize="20" Grid.Row="0"></TextBlock>
+                            <TextBlock Text="{Binding GetDiscount, StringFormat={} {0} %}" HorizontalAlignment="Center" FontSize="20" Grid.Row="1"></TextBlock>
+                            <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" Grid.Row="2" HorizontalAlignment="Right"></Button>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

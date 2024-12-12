@@ -18,6 +18,7 @@ namespace Khabibullin_Glazkisafe
 {
     public partial class AddEditPage : Page
     {
+        private AgentsPage _agentsPage = new AgentsPage();
         private Agent _currentAgents = new Agent();
         public AddEditPage(Agent SelectedAgents)
         {
@@ -106,7 +107,34 @@ namespace Khabibullin_Glazkisafe
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            var currentAgent = (sender as Button).DataContext as Agent;
+
+            var currentProductSales = Khabibullin_GlazkisafeEntities1.GetContext().ProductSale.ToList();
+            currentProductSales = currentProductSales.Where(p => p.AgentID == currentAgent.ID).ToList();
+
+            if (currentProductSales.Count != 0)
+            {
+                MessageBox.Show($"Невозможно выполнить удаление, так как существует записи на эту услугу");
+            }
+            else
+            {
+                if (MessageBox.Show($"Вы точно хотите выполнить удаление?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Khabibullin_GlazkisafeEntities1.GetContext().Agent.Remove(currentAgent);
+                        Khabibullin_GlazkisafeEntities1.GetContext().SaveChanges();
+
+                        _agentsPage.AgentsListView.ItemsSource = Khabibullin_GlazkisafeEntities1.GetContext().Agent.ToList();
+
+                        _agentsPage.UpdateAgents();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+            }
         }
     }
 }

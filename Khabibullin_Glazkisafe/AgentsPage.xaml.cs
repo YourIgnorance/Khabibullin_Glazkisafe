@@ -41,7 +41,7 @@ namespace Khabibullin_Glazkisafe
 
             UpdateAgents();
         }
-        private void UpdateAgents()
+        public void UpdateAgents()
         {
             var currentAgents = Khabibullin_GlazkisafeEntities1.GetContext().Agent.ToList();
 
@@ -67,11 +67,11 @@ namespace Khabibullin_Glazkisafe
             }
             if (SortComboBox.SelectedIndex == 5)
             {
-                currentAgents = currentAgents.OrderBy(p => p.Title).ToList();
+                currentAgents = currentAgents.OrderBy(p => p.GetDiscount).ToList();
             }
             if (SortComboBox.SelectedIndex == 6)
             {
-                currentAgents = currentAgents.OrderBy(p => p.Title).ToList();
+                currentAgents = currentAgents.OrderByDescending(p => p.GetDiscount).ToList();
             }
 
             if (FiltrComboBox.SelectedIndex == 0)
@@ -142,6 +142,16 @@ namespace Khabibullin_Glazkisafe
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Agent));
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditPriorityButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void PageListBox_MouseUp(object sender, MouseButtonEventArgs e)

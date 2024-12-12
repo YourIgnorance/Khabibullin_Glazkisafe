@@ -22,5 +22,13 @@ namespace Khabibullin_Glazkisafe
     
         public virtual Agent Agent { get; set; }
         public virtual Product Product { get; set; }
+
+        public decimal GetAgentPrice
+        {
+            get
+            {
+                return ProductCount * Product.MinCostForAgent;
+            }
+        }
     }
 }
