@@ -30,10 +30,10 @@ namespace Khabibullin_Glazkisafe
 
             var currentService = Khabibullin_GlazkisafeEntities1.GetContext().Agent.ToList();
 
-            for (int i = 0; i < currentService.Count; i++)
-            {
-                currentService[i].Title = currentService[i].Title.Replace("C", "С");
-            }
+            //for (int i = 0; i < currentService.Count; i++)
+            //{
+            //    currentService[i].Title = currentService[i].Title.Replace("C", "С");
+            //}
             AgentsListView.ItemsSource = currentService;
 
             SortComboBox.SelectedIndex = 0;
@@ -102,7 +102,7 @@ namespace Khabibullin_Glazkisafe
             {
                 currentAgents = currentAgents.Where(p => (p.GetAgentType.Contains("ПАО"))).ToList();
             }
-            currentAgents = currentAgents.Where(p => p.Email.ToLower().Contains(TBoxSearch.Text.ToLower()) || p.Title.ToLower().Contains(TBoxSearch.Text.ToLower()) || p.Phone.ToLower().Replace(" (", "").Replace(")", "").Replace(" ", "").Replace("-", "").Contains(TBoxSearch.Text.ToLower())).ToList();
+            currentAgents = currentAgents.Where(p => p.Email.ToLower().Contains(TBoxSearch.Text.ToLower()) || p.Title.ToLower().Contains(TBoxSearch.Text.ToLower()) || p.Phone.ToLower().Replace(" (", "").Replace(")", "").Replace("+", "").Replace("-", "").Replace(" ", "").Contains(TBoxSearch.Text.ToLower())).ToList();
             AgentsListView.ItemsSource = currentAgents.ToList();
 
             
@@ -139,6 +139,10 @@ namespace Khabibullin_Glazkisafe
             ChangePage(2, null);
         }
 
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Agent));
+        }
 
         private void PageListBox_MouseUp(object sender, MouseButtonEventArgs e)
         {

@@ -13,6 +13,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            
         </Grid.RowDefinitions>
         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
@@ -84,12 +85,17 @@
                                 </Binding>
                             </Image.Source>
                         </Image>
-                    <StackPanel Orientation="Horizontal" Grid.Column="1">
-                        <TextBlock Text="{Binding GetAgentType}" HorizontalAlignment="Left" FontSize="20"></TextBlock>
-                        <TextBlock Text="{Binding Title, StringFormat={} | {0}}" HorizontalAlignment="Left" FontSize="20"></TextBlock>
-                    </StackPanel>
-                    <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <TextBlock Text="{Binding GetAgentType}" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Title, StringFormat={} | {0}}" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="3">
+                            <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click"  Height="30" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                     <TextBlock Text="{Binding Priority, StringFormat={} Приоритетность: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                        
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
