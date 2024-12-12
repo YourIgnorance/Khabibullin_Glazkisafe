@@ -58,20 +58,13 @@ namespace Khabibullin_Glazkisafe
         {
             get
             {
-                decimal price = 0;
-
-                foreach (ProductSale sales in ProductSale)
-                {
-                    price += sales.GetAgentPrice;
-                }
-
-                if (price < 10000)
+                if (ProductPrice < 10000)
                     return 0;
-                else if (price >= 10000 && price < 50000)
+                else if (ProductPrice >= 10000 && ProductPrice < 50000)
                     return 5;
-                else if (price >= 50000 && price < 150000)
+                else if (ProductPrice >= 50000 && ProductPrice < 150000)
                     return 10;
-                else if (price >= 150000 && price < 500000)
+                else if (ProductPrice >= 150000 && ProductPrice < 500000)
                     return 20;
                 else
                     return 25;
