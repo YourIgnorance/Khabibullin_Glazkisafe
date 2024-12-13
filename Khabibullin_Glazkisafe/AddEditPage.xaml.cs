@@ -22,13 +22,13 @@ namespace Khabibullin_Glazkisafe
         private Agent _currentAgents = new Agent();
         public AddEditPage(Agent SelectedAgents)
         {
+            InitializeComponent();
             if (SelectedAgents != null)
                 _currentAgents = SelectedAgents;
 
             DataContext = _currentAgents;
 
             
-            InitializeComponent();
         }
 
         private void ChangePictureBtn_Click(object sender, RoutedEventArgs e)
@@ -90,12 +90,16 @@ namespace Khabibullin_Glazkisafe
                 return;
             }
 
+            _currentAgents.AgentTypeID = ComboType.SelectedIndex += 1;
+
+
             if (_currentAgents.ID == 0)
                 Khabibullin_GlazkisafeEntities1.GetContext().Agent.Add(_currentAgents);
 
             try
             {
                 Khabibullin_GlazkisafeEntities1.GetContext().SaveChanges();
+
                 MessageBox.Show("Информация сохранена");
                 Manager.MainFrame.GoBack();
             }
@@ -126,7 +130,7 @@ namespace Khabibullin_Glazkisafe
                         Khabibullin_GlazkisafeEntities1.GetContext().SaveChanges();
 
                         _agentsPage.AgentsListView.ItemsSource = Khabibullin_GlazkisafeEntities1.GetContext().Agent.ToList();
-
+                        Manager.MainFrame.Navigate(new AgentsPage());
                         _agentsPage.UpdateAgents();
                     }
                     catch (Exception ex)

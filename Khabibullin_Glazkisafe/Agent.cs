@@ -11,7 +11,8 @@ namespace Khabibullin_Glazkisafe
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Media;
+
     public partial class Agent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -70,7 +71,20 @@ namespace Khabibullin_Glazkisafe
                     return 25;
             }
         }
-
+        public SolidColorBrush FonStyle
+        {
+            get
+            {
+                if (GetDiscount >= 25)
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("LightGreen");
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         public virtual AgentType AgentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentPriorityHistory> AgentPriorityHistory { get; set; }

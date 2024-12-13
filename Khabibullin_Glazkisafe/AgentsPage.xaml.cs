@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,7 +39,7 @@ namespace Khabibullin_Glazkisafe
 
             SortComboBox.SelectedIndex = 0;
             FiltrComboBox.SelectedIndex = 0;
-
+            EditPriorityButton.Visibility = Visibility.Hidden;
             UpdateAgents();
         }
         public void UpdateAgents()
@@ -47,7 +48,7 @@ namespace Khabibullin_Glazkisafe
 
             if (SortComboBox.SelectedIndex == 0)
             {
-                currentAgents = currentAgents.OrderBy(p => p.Title).ToList();
+                currentAgents = currentAgents.OrderBy(p => p.ID).ToList();
             }
             if (SortComboBox.SelectedIndex == 1)
             {
@@ -146,12 +147,61 @@ namespace Khabibullin_Glazkisafe
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Manager.MainFrame.Navigate(new AddEditPage(null));
         }
 
+        private void AgentsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AgentsListView.SelectedItems.Count > 1)
+            {
+                EditPriorityButton.Visibility = Visibility.Visible;
+            }
+            else
+                EditPriorityButton.Visibility = Visibility.Hidden;
+        }
         private void EditPriorityButton_Click(object sender, RoutedEventArgs e)
         {
+            int maxPriority = 0;
+            foreach (Agent agent in AgentsListView.SelectedItems)
+            {
+                if (agent.Priority > maxPriority)
+                    maxPriority = agent.Priority;
+            }
+            SelfWindow window = new SelfWindow(maxPriority);
+            window.ShowDialog();
+            if (string.IsNullOrEmpty(window.TBPriority.Text) || Convert.ToInt32(window.TBPriority.Text) <= 0)
+            {
+                MessageBox.Show("Изменения не произошло");
+            }
+            else
+            {
+                int newPriority = Convert.ToInt32(window.TBPriority.Text);
 
+                foreach (Agent agent in AgentsListView.SelectedItems)
+                {
+                    agent.Priority = newPriority;
+                }
+                try
+                {
+                    Khabibullin_GlazkisafeEntities1.GetContext().SaveChanges();
+                    MessageBox.Show("информация сохранена");
+                    UpdateAgents();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+
+        private void AgentsListView_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                Khabibullin_GlazkisafeEntities1.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                AgentsListView.ItemsSource = Khabibullin_GlazkisafeEntities1.GetContext().Agent.ToList();
+                UpdateAgents();
+            }
         }
 
         private void PageListBox_MouseUp(object sender, MouseButtonEventArgs e)
