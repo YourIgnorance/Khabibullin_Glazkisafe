@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,9 @@ namespace Khabibullin_Glazkisafe
         public AddEditPage(Agent SelectedAgents)
         {
             InitializeComponent();
+
+            if (SelectedAgents == null)
+                RealizeHistoryBtn.Visibility = Visibility.Hidden;
             if (SelectedAgents != null)
                 _currentAgents = SelectedAgents;
 
@@ -139,6 +143,12 @@ namespace Khabibullin_Glazkisafe
                     }
                 }
             }
+        }
+
+        private void RealizeHistoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HistorySales window = new HistorySales(_currentAgents);
+            window.ShowDialog();
         }
     }
 }

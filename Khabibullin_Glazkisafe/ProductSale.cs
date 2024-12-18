@@ -30,5 +30,12 @@ namespace Khabibullin_Glazkisafe
                 return ProductCount * Product.MinCostForAgent;
             }
         }
+        public string GetProductName
+        {
+            get
+            {
+                return Product.Title;
+            }
+        }
     }
 }

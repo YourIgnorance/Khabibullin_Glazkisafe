@@ -42,7 +42,7 @@
                     <Binding Path="Logo" TargetNullValue="agents\picture.png"></Binding>
                 </Image.Source>
             </Image>
-            <Button Content="Изменить" Name="ChangePictureBtn" Click="ChangePictureBtn_Click"></Button>
+            <Button Content="Изменить логотип" Name="ChangePictureBtn" Click="ChangePictureBtn_Click"></Button>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
@@ -83,9 +83,9 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+            <Button Content="История реализации" Width="200" Name="RealizeHistoryBtn" Click="RealizeHistoryBtn_Click"  Margin="5"></Button>
             <Button Content="Сохранить" Name="SaveBtn" Click="SaveBtn_Click"  Margin="5"></Button>
             <Button Content="Удалить" Name="DeleteBtn" Click="DeleteBtn_Click" Margin="5" Opacity="{Binding ID}"></Button>
         </StackPanel>
-
     </Grid>
 </Page>
