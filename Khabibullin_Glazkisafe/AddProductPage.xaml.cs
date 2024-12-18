@@ -64,7 +64,7 @@ namespace Khabibullin_Glazkisafe
             if (ProductComboBox.SelectedIndex < 0)
                 errors.AppendLine("Укажите наименование продукта");
 
-            if (_currentProductSale.ProductCount <= 0)
+            if (string.IsNullOrWhiteSpace($"{_currentProductSale.ProductCount <= 0}") || _currentProductSale.ProductCount <= 0)
                 errors.AppendLine("Укажите количество");
 
             if (errors.Length > 0)
