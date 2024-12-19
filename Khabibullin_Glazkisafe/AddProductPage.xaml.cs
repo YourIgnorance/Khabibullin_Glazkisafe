@@ -18,6 +18,7 @@ namespace Khabibullin_Glazkisafe
     {
         private Agent _currentAgents = new Agent();
         private ProductSale _currentProductSale = new ProductSale();
+        DateTime? ProductDate;
         public AddProductPage(Agent selectedAgent)
         {
             InitializeComponent();
@@ -29,9 +30,10 @@ namespace Khabibullin_Glazkisafe
 
             DataContext = _currentProductSale;
 
+            ProductDate = null;
+
             currentProductSale = currentProductSale.Where(p => p.AgentID == _currentAgents.ID).ToList();
-            
-            TBoxDateProduct.Text = DateTime.Now.ToString();
+
             var currentProducts = Khabibullin_GlazkisafeEntities1.GetContext().Product.ToList();
             currentProducts = currentProducts.Where(p => p.Title.ToLower().Contains(TBoxSearhProduct.Text.ToLower())).ToList();
             ProductComboBox.ItemsSource = currentProducts.Select(p => p.Title);
@@ -54,18 +56,31 @@ namespace Khabibullin_Glazkisafe
         {
             UpdateProducts();
         }
-
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             var productList = Khabibullin_GlazkisafeEntities1.GetContext().Product.ToList();
-
+            int productCount = 1;
             StringBuilder errors = new StringBuilder();
 
             if (ProductComboBox.SelectedIndex < 0)
                 errors.AppendLine("Укажите наименование продукта");
-
-            if (string.IsNullOrWhiteSpace($"{_currentProductSale.ProductCount <= 0}") || _currentProductSale.ProductCount <= 0)
-                errors.AppendLine("Укажите количество");
+            if(ProductDate == null)
+                errors.AppendLine("Укажите дату продукта");
+            if (int.TryParse(TBoxCountProduct.Text, out int value))
+            {
+                if (value <= 0)
+                {
+                    errors.AppendLine("Количество продукции должно быть больше 0!");
+                }
+                else
+                {
+                    productCount = value;
+                }
+            }
+            else
+            {
+                errors.AppendLine("Значение количества продукции указано неверно!");
+            }
 
             if (errors.Length > 0)
             {
@@ -76,11 +91,10 @@ namespace Khabibullin_Glazkisafe
 
             var productID = productList.Select(p => p.ID);
 
-
-
-            _currentProductSale.SaleDate = DateTime.Now;
             _currentProductSale.AgentID = _currentAgents.ID;
             _currentProductSale.ProductID = ProductComboBox.SelectedIndex + 1;
+            _currentProductSale.SaleDate = (DateTime)ProductDate;
+            _currentProductSale.ProductCount = productCount;
 
             
             Khabibullin_GlazkisafeEntities1.GetContext().ProductSale.Add(_currentProductSale);
@@ -100,6 +114,11 @@ namespace Khabibullin_Glazkisafe
         public void CloseWindow()
         {
             this.Close();
+        }
+
+        private void dtPicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProductDate = (DateTime)(((DatePicker)sender).SelectedDate);
         }
     }
 }

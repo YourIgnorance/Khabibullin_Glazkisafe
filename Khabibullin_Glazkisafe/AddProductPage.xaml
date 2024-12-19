@@ -16,16 +16,16 @@
         </Grid.RowDefinitions>
             
 
-            <TextBlock Text="Название Реализации" FontSize="16" Height="20" MinWidth="120" Width="auto" Margin="15" VerticalAlignment="Top"></TextBlock>
-            <TextBox Name="TBoxSearhProduct" TextChanged="TBoxSearhProduct_TextChanged"  Width="270" Height="25" FontSize="15" VerticalAlignment="Top"></TextBox>
-            <ComboBox Name="ProductComboBox" SelectionChanged="ProductComboBox_SelectionChanged"  Height="30" Width="270" FontSize="15" VerticalAlignment="Center"></ComboBox>
-        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="Название Реализации" FontSize="16" Height="20" MinWidth="120" Width="auto" Margin="10" VerticalAlignment="Top"></TextBlock>
+            <TextBox Name="TBoxSearhProduct" TextChanged="TBoxSearhProduct_TextChanged"  Width="250" Height="25" FontSize="15" VerticalAlignment="Top"></TextBox>
+            <ComboBox Name="ProductComboBox" SelectionChanged="ProductComboBox_SelectionChanged"  Height="30" Width="250" FontSize="15" VerticalAlignment="Center"></ComboBox>
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="Дата продажи" FontSize="15" Height="20" MinWidth="120" Width="auto" Margin="5"></TextBlock>
-            <TextBox Name="TBoxDateProduct" FontSize="15" Height="20" Width="500"></TextBox>
+            <DatePicker Name="dtPicker" IsTodayHighlighted="True" SelectedDateChanged="dtPicker_SelectedDateChanged" Width="150" Height="30" Margin="20"></DatePicker>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
             <TextBlock Text="Кол-во товаров" FontSize="15" Height="20" MinWidth="120" Width="auto" Margin="5"></TextBlock>
-            <TextBox Text="{Binding ProductCount}" Name="TBoxCountProduct"  FontSize="15" Height="20" Width="400"></TextBox>
+            <TextBox Name="TBoxCountProduct"  FontSize="15" Height="20" Width="200" Margin="10"></TextBox>
         </StackPanel>
         <Button Content="Сохранить" Name="SaveBtn" Click="SaveBtn_Click"  Height="40" Width="300" Grid.Row="4" HorizontalAlignment="Right"></Button>
     </Grid>
