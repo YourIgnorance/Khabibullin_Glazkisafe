@@ -26,13 +26,7 @@ namespace Khabibullin_Glazkisafe
             if (selectedAgent != null)
                 _currentAgents = selectedAgent;
 
-            var currentProductSale = Khabibullin_GlazkisafeEntities1.GetContext().ProductSale.ToList();
-
-            DataContext = _currentProductSale;
-
             ProductDate = null;
-
-            currentProductSale = currentProductSale.Where(p => p.AgentID == _currentAgents.ID).ToList();
 
             var currentProducts = Khabibullin_GlazkisafeEntities1.GetContext().Product.ToList();
             currentProducts = currentProducts.Where(p => p.Title.ToLower().Contains(TBoxSearhProduct.Text.ToLower())).ToList();
@@ -45,11 +39,11 @@ namespace Khabibullin_Glazkisafe
         }
         public void UpdateProducts()
         {
-            var currentProductSales = Khabibullin_GlazkisafeEntities1.GetContext().ProductSale.ToList();
+            var currentProductSales = Khabibullin_GlazkisafeEntities1.GetContext().Product.ToList();
 
-            currentProductSales = currentProductSales.Where(p => p.GetProductName.ToLower().Contains(TBoxSearhProduct.Text.ToLower())).ToList();
+            currentProductSales = currentProductSales.Where(p => p.Title.ToLower().Contains(TBoxSearhProduct.Text.ToLower())).ToList();
 
-            ProductComboBox.ItemsSource = currentProductSales.Select(p => p.GetProductName);
+            ProductComboBox.ItemsSource = currentProductSales.Select(p => p.Title);
         }
 
         private void TBoxSearhProduct_TextChanged(object sender, TextChangedEventArgs e)
@@ -58,8 +52,7 @@ namespace Khabibullin_Glazkisafe
         }
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            var productList = Khabibullin_GlazkisafeEntities1.GetContext().Product.ToList();
-            int productCount = 1;
+            int productCount = 0;
             StringBuilder errors = new StringBuilder();
 
             if (ProductComboBox.SelectedIndex < 0)
@@ -87,9 +80,6 @@ namespace Khabibullin_Glazkisafe
                 MessageBox.Show(errors.ToString());
                 return;
             }
-            productList = productList.Where(p => p.Title.ToLower().Contains(ProductComboBox.SelectedItem.ToString().ToLower())).ToList();
-
-            var productID = productList.Select(p => p.ID);
 
             _currentProductSale.AgentID = _currentAgents.ID;
             _currentProductSale.ProductID = ProductComboBox.SelectedIndex + 1;
